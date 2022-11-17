@@ -28,11 +28,51 @@ public class EditorController : MonoBehaviour
 
     public void SaveMap()
     {
+        PlayerPrefs.SetInt("MaxObj", MaxObj);
         for(int i = 0; i < MaxObj; i++)
         {
-            PlayerPrefs.SetInt("ObjectNum", Obj[i].GetComponent<SaveObject_>().ObjNumber);
+            PlayerPrefs.SetInt("ObjectNum"+i.ToString(), Obj[i].GetComponent<SaveObject_>().ObjNumber);
+
+            PlayerPrefs.SetFloat("X" + i.ToString(), Obj[i].GetComponent<SaveObject_>().transform.position.x);
+            PlayerPrefs.SetFloat("Y" + i.ToString(), Obj[i].GetComponent<SaveObject_>().transform.position.y);
+            PlayerPrefs.SetFloat("Z" + i.ToString(), Obj[i].GetComponent<SaveObject_>().transform.position.z);
+
+            PlayerPrefs.SetFloat ("RX" + i.ToString(), Obj[i].GetComponent<SaveObject_>().transform.eulerAngles.x);
+            PlayerPrefs.SetFloat("RY" + i.ToString(), Obj[i].GetComponent<SaveObject_>().transform.eulerAngles.y);
+            PlayerPrefs.SetFloat("RZ" + i.ToString(), Obj[i].GetComponent<SaveObject_>().transform.eulerAngles.z);
+
         }
+        Debug.Log("Save Complete!");
     }
+
+    public void LoadMap()
+    {
+        MaxObj = PlayerPrefs.GetInt("MaxObj");
+        for (int i = 0; i < MaxObj; i++)
+        {
+            int ObjNum = PlayerPrefs.GetInt("ObjectNum" + i.ToString());
+            float X = PlayerPrefs.GetFloat("X" + i.ToString());
+            float Y = PlayerPrefs.GetFloat("Y" + i.ToString());
+            float Z = PlayerPrefs.GetFloat("Z" + i.ToString());
+
+            float RX = PlayerPrefs.GetFloat("RX" + i.ToString());
+            float RY = PlayerPrefs.GetFloat("RY" + i.ToString());
+            float RZ = PlayerPrefs.GetFloat("RZ" + i.ToString());
+
+            GameObject clone = Instantiate(PrefabObj[ObjNum]);
+            clone.GetComponent<SaveObject_>().isLoad = true;
+            clone.transform.position = new Vector3(X, Y, Z);
+            clone.transform.eulerAngles = new Vector3(RX, RY, RZ);
+            clone.GetComponent<SaveObject_>().ObjNumber = ObjNum;
+         
+            
+
+
+        }
+        Debug.Log("Load Complete!");
+    }
+
+ 
 
     void Update(){
         for(int i = 0; i < MaxObj; i++)
