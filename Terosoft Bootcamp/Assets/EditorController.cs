@@ -6,18 +6,19 @@ public class EditorController : MonoBehaviour
 {
     public Camera camera;
 
-    void Start(){
+    void Update(){
+        
         RaycastHit hit;
         Ray ray = camera.ScreenPointToRay(Input.mousePosition);
         
         if (Physics.Raycast(ray, out hit)) {
-           Debug.Log(hit.point);
+           Debug.DrawLine(camera.transform.position,hit.point,Color.red);
+           Debug.Log("Hit"+hit.point);
+           if(hit.collider.GetComponent<PlayerController>() != null){
+                Debug.Log("Name " + hit.collider.GetComponent<PlayerController>().Name);
+           }
+           
         }
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
