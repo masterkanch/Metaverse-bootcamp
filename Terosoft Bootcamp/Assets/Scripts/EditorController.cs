@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EditorController : MonoBehaviour
 {
-
+    public string Name;
     public GameObject[] PrefabObj;
     public static GameObject[] Obj;
     public static int MaxObj;
@@ -47,7 +47,14 @@ public class EditorController : MonoBehaviour
 
     public void LoadMap()
     {
+        for (int i = 0; i < MaxObj; i++)
+        {
+            if (Obj[i] !=null)
+            Destroy(Obj[i].gameObject);
+        }
+
         MaxObj = PlayerPrefs.GetInt("MaxObj");
+
         for (int i = 0; i < MaxObj; i++)
         {
             int ObjNum = PlayerPrefs.GetInt("ObjectNum" + i.ToString());
@@ -60,6 +67,7 @@ public class EditorController : MonoBehaviour
             float RZ = PlayerPrefs.GetFloat("RZ" + i.ToString());
 
             GameObject clone = Instantiate(PrefabObj[ObjNum]);
+            Obj[i] = clone;
             clone.GetComponent<SaveObject_>().isLoad = true;
             clone.transform.position = new Vector3(X, Y, Z);
             clone.transform.eulerAngles = new Vector3(RX, RY, RZ);
