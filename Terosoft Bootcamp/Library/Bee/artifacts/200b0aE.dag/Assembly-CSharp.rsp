@@ -352,6 +352,7 @@
 "Assets/Resource/Suriyun/Scripts/Camera Scripts/MouseOrbitImproved.cs"
 "Assets/Scripts/EditorController.cs"
 "Assets/Scripts/PlayerController.cs"
+"Assets/Scripts/SaveObject_.cs"
 -langversion:9.0
 
 /deterministic

@@ -4,13 +4,24 @@ using UnityEngine;
 
 public class EditorController : MonoBehaviour
 {
+    public static GameObject[] Obj;
+    public static int MaxObj;
     public Camera camera;
     public GameObject SelectObj;
     
     Vector3 Hitpoint;
     Vector3 MousePoint;
 
+    private void Start()
+    {
+        Obj = new GameObject[99];
+    }
+
     void Update(){
+        for(int i = 0; i < MaxObj; i++)
+        {
+            Debug.Log(Obj[i].name);
+        }
         RaycastHit hit;
         Ray ray = camera.ScreenPointToRay(Input.mousePosition);
 
