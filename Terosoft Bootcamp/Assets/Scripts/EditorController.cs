@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EditorController : MonoBehaviour
 {
+
+    public GameObject[] PrefabObj;
     public static GameObject[] Obj;
     public static int MaxObj;
     public Camera camera;
@@ -15,6 +17,21 @@ public class EditorController : MonoBehaviour
     private void Start()
     {
         Obj = new GameObject[99];
+    }
+
+    public void Create(int num)
+    {
+        GameObject clone = Instantiate(PrefabObj[num]);
+        clone.transform.position = Vector3.zero;
+        clone.GetComponent<SaveObject_>().ObjNumber = num;
+    }
+
+    public void SaveMap()
+    {
+        for(int i = 0; i < MaxObj; i++)
+        {
+            PlayerPrefs.SetInt("ObjectNum", Obj[i].GetComponent<SaveObject_>().ObjNumber);
+        }
     }
 
     void Update(){

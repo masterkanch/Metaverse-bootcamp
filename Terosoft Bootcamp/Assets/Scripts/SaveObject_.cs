@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SaveObject_ : MonoBehaviour
 {
-    
+    public int ObjNumber;
     void Start()
     {
         EditorController.Obj[EditorController.MaxObj] = gameObject;
